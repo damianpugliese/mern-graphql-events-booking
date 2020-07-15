@@ -1,0 +1,25 @@
+{
+  "name": "mern-graphql-events-booking",
+  "version": "1.0.0",
+  "description": "MERN Stack-GraphQL Events Booking",
+  "main": "server.js",
+  "scripts": {
+    "server-install": "npm install --prefix server",
+    "client-install": "npm install --prefix client",
+    "start": "npm start --prefix server",
+    "server": "npm run server --prefix server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-prebuild": "npm install --prefix server",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Damián Pugliese",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "remove": "^0.1.5"
+  }
+}
