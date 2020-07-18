@@ -32,9 +32,7 @@ npm run client
 
 En el package.json de la carpeta raíz están creados los scripts para hacer el deploy a heroku
 
-<!-- ## Sitio Web Heroku
-
-https://merninstagramclone.herokuapp.com/ -->
+<!-- ## Sitio Web Heroku -->
 
 ## App Info
 

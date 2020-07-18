@@ -8,7 +8,10 @@ module.exports = {
         try {
             const user = await User.findOne({ email: args.userInput.email })
             if (user) {
-                throw new Error('User already exists')
+                throw new Error('User already exists');
+            }
+            if (args.userInput.password !== args.userInput.confirmPassword) {
+                throw new Error("Passwords don't match");
             }
             const hashPassword = await bcrypt.hash(args.userInput.password, 12)
             const newUser = new User({

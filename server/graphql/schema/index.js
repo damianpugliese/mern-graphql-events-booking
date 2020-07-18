@@ -43,6 +43,7 @@ module.exports = buildSchema(`
         username: String!
         email: String!
         password: String!
+        confirmPassword: String!
     }
     
     type RootQuery {
