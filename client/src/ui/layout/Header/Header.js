@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
         color: '#000',
         paddingLeft: '25px',
         fontSize: '1.2em',
+        fontWeight: 'bold'
+
     },
     navBarResponsive: {
         display: 'none',
