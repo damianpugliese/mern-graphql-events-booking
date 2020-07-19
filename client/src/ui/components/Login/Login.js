@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import axios from 'axios';
 import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import AuthContext from '../../../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 
     const classes = useStyles();
+
+    const authContext = useContext(AuthContext);
 
     const loginFormDataInitialState = {
         email: '',
@@ -134,7 +137,17 @@ const Login = () => {
                     'Content-Type': 'application/json'
                 }
             })
-                .then(res=>console.log(res.data))
+                .then(res=>{
+                    console.log(res.data);
+                    if (res.data.data.login.token) {
+                        const { token, userId, tokenExpiration } = res.data.data.login
+                        authContext.login(
+                            token,
+                            userId,
+                            tokenExpiration
+                        );
+                    }
+                })
                 .catch(err=>console.log(err));
             resetForm();
         }

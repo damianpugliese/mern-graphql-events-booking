@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './hamburgers.css';
 import logo from '../../../assets/logo.png';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Container, Typography } from '@material-ui/core';
+import AuthContext from '../../../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -44,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: '25px',
         fontSize: '1.2em',
         fontWeight: 'bold'
-
     },
     navBarResponsive: {
         display: 'none',
@@ -88,6 +88,8 @@ const Header = () => {
 
     const classes = useStyles();
 
+    const authContext = useContext(AuthContext);
+
     const [isVisible, setIsVisible] = useState(false);
 
     const toggleNavResponsive = () => {
@@ -105,10 +107,19 @@ const Header = () => {
                     </Typography>
                 </Link>
                 <nav className={classes.navBar}>
-                    <Link to="/login" className={classes.links}>Login</Link>
-                    <Link to="/signup" className={classes.links}>Signup</Link>
+                    {!authContext.token &&
+                        <>
+                            <Link to="/login" className={classes.links}>Login</Link>
+                            <Link to="/signup" className={classes.links}>Signup</Link>
+                        </>
+                    }
                     <Link to="/events" className={classes.links}>Events</Link>
-                    <Link to="/bookings" className={classes.links}>Bookings</Link>
+                    {authContext.token &&
+                        <>
+                            <Link to="/bookings" className={classes.links}>Bookings</Link>
+                            <Link to="/" className={classes.links} onClick={authContext.logout}>Logout</Link>
+                        </>
+                    }
                 </nav>
                 <nav className={`${classes.navBarResponsive} ${isVisible ? classes.isOpen : ''}`}>
                     <Link to="/login" className={classes.linksResponsive} onClick={toggleNavResponsive}>Login</Link>
